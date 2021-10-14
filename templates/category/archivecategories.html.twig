@@ -1,0 +1,19 @@
+{# empty Twig template #}
+{% extends 'main/base.html.twig'%}
+{% block title %} HomePage {% endblock %}
+
+{% block body %}
+     {% for article in articlesArchiveCat %}
+        {{ article.title}}
+     {% endfor %}
+     
+     {#{% for subcategory in subcategories %}
+        {{ subcategory.titleSubcat }}
+     {% endfor %}
+     
+     {% for article in articles %}
+        {{ article.title }}
+     {% endfor %}#}
+     
+    
+{% endblock %}

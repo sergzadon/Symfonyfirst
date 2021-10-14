@@ -1,0 +1,15 @@
+{# empty Twig template #}
+{% extends 'main/base.html.twig'%}
+{% block title %} HomePage {% endblock %}
+
+{% block body %}
+    
+     {% for user in users %}
+         {{ user.email }}, {{ user.roles | json_encode()}}
+     {% endfor %}
+     
+     <h4><a href="{{ path("admin_create_user") }}">Создать пользователя</a></h4>
+     <a href="{{ path("app_logout") }}">Выход</a>
+     
+ 
+{% endblock %}

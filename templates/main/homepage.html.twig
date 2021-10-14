@@ -1,0 +1,104 @@
+{# empty Twig template #}
+{% extends 'main/base.html.twig'%}
+{% block title %} HomePage {% endblock %}
+
+{% block body %}
+    {# {% for category in categories %}
+        {{ category.name }}
+     {% endfor %}
+     
+     {% for subcategory in subcategories %}
+        {{ subcategory.titleSubcat }}
+     {% endfor %}
+     
+     {% for article in articles %}
+        {{ article.title }}
+     {% endfor %}
+     #}
+    <ul id="headlines">
+    {% for article in articles %}
+        <li class='{{ article.ar_id }}'>
+            <h2>
+{#                {{ author.getAllUsers() }}#}
+                <span class="pubDate">
+                    {{article.publicationdate|date('d-m-Y')}};
+                </span>
+                <a href="{{ path("homepage", {"article_id" :article.ar_id}) }}">{{article.title }}</a>
+                
+                {% if article.cat_id is defined  %} 
+                    <span class="category">
+                        Категория 
+                        <a href="{{ path("archive_category", {"articleCat_id" :article.cat_id}) }}">{{article.name }}</a>
+                {#            <?= "<a href=" . \ItForFree\SimpleMVC\Url::link('archive/index&categoryId=' 
+		. $article->categoryId . ">{$Category->getById($article->categoryId)->name}</a>" ) ?>
+                    #}     
+                    </span>
+                {% else %}
+                    <span class="category">
+                        Без категории
+                    </span>
+
+                {% endif %}
+                
+                
+{#                <?php if (isset($article->subcategoryId) && $article->subcategoryId > 0) { ?>#}
+                {% if article.subcat_id is defined  %} 
+                    <span class="subcategory">
+                        Подкатегория 
+                         <a href="{{ path("archive_subcategory", {"subcategory_id" :article.ar_id}) }}">{{article.titlesubcat }}</a>
+                        
+                 {#           <?= "<a href=" . \ItForFree\SimpleMVC\Url::link('admin/authors/index&id=' 
+		. $article->id . ">{$Subcategory->getById($article->subcategoryId)->titleSubcat}</a>" ) ?>
+                 #}        
+                    </span>
+            </h2>
+                    {% else %}
+                        <span class="subcategory">
+                            <?php echo "Без подкатегории"?>
+                        </span>
+                   
+                {% endif %}
+            <span class="subcategory">
+                        
+                <h1> Авторы </h1>
+                        <h2>
+                       <?php 
+                            $count = 0;
+                            $listAuthors = $Author->getAuthors($article->id);
+                            foreach($listAuthors as $Authors ) {
+//                                echo $Authors->login." ";
+//                                $count += 1;
+//                                if($count != count($listAuthors)) {
+//                                    echo ",";
+//                                } ?>
+                             <?= "<a href=" . \ItForFree\SimpleMVC\Url::link('admin/authors/index&id=' 
+		. $Authors->id . ">{$Authors->login}</a>" ) ?>
+                                
+                                <?php 
+                                $count += 1;
+                                if($count != count($listAuthors)) {
+                                    echo ",";
+                                } ?>
+                             </a>
+                          <?php  } 
+                            $count = 0;
+                        ?>
+                             
+                        </h2>
+                    </span>
+            <p class="summary"><?php echo htmlspecialchars($article->summary)?></p>
+            <p class="summary"><?php echo htmlspecialchars(mb_strimwidth($article->content, 0, 50,"..."))?></p>
+            <img id="loader-identity" src="JS/ajax-loader.gif" alt="gif">
+            <ul class="ajax-load">
+                <li><a href=".?action=viewArticle&amp;articleId=<?php echo $article->id?>" class="ajaxArticleBodyByPost" data-contentId="<?php echo $article->id?>">Показать продолжение (POST)</a></li>
+                <li><a href=".?action=viewArticle&amp;articleId=<?php echo $article->id?>" class="ajaxArticleBodyByGet" data-contentId="<?php echo $article->id?>">Показать продолжение (GET)</a></li>
+                <li><a href=".?action=viewArticle&amp;articleId=<?php echo $article->id?>" class="ajaxArticleBodyByPostNew" data-summury="<?php echo $article->id?>">(POST) -- NEW</a></li>
+                <li><a href=".?action=viewArticle&amp;articleId=<?php echo $article->id?>" class="ajaxArticleBodyByGetNew" data-summury="<?php echo $article->id?>">(GET)  -- NEW</a></li>
+            </ul>
+            <a href=".?action=viewArticle&amp;articleId=<?php echo $article->id?>" class="showContent" data-contentId="<?php echo $article->id?>">Показать полностью</a>
+        </li>
+    {% endfor %}
+    </ul>
+ 
+{#     <a href="{{ path("app_logi") }}">"Site admin"</a>#}
+{% endblock %}
