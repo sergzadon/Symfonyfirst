@@ -45,6 +45,11 @@ class Users implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $timestamp;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -179,4 +184,18 @@ public function removeArticle(Articles $article): self
 
     return $this;
 }
+
+public function getTimestamp(): ?\DateTimeInterface
+{
+    return $this->timestamp;
+}
+
+public function setTimestamp(?\DateTimeInterface $timestamp): self
+{
+    $this->timestamp = $timestamp;
+
+    return $this;
+}
+
+
 }

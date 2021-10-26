@@ -30,23 +30,11 @@ class UsersRepository extends ServiceEntityRepository implements UsersRepository
         parent::__construct($registry, Users::class);
     }
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-//    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
-//    {
-//        if (!$user instanceof Users) {
-//            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
-//        }
-//
-//        $user->setPassword($newHashedPassword);
-//        $this->_em->persist($user);
-//        $this->_em->flush();
-//   }
 
 
     public function getAllUsers():array
     {
+//        
       return parent::findAll();  
     }
     
@@ -75,6 +63,21 @@ class UsersRepository extends ServiceEntityRepository implements UsersRepository
         $this->entityManager->flush();
     }
     
+    
+        /**
+     * Used to upgrade (rehash) the user's password automatically over time.
+     */
+//    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+//    {
+//        if (!$user instanceof Users) {
+//            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+//        }
+//
+//        $user->setPassword($newHashedPassword);
+//        $this->_em->persist($user);
+//        $this->_em->flush();
+//   }
+
 
 //    public function setDeleteUser(Article $user);
     

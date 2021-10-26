@@ -1,0 +1,22 @@
+.form-login 
+{
+    width: 90%;
+    padding: 30px;
+    border-radius: 5px;
+    margin-top: 30%;
+}
+
+.page
+{
+   overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: silver;
+    
+}
+
+footer {
+  margin-top: auto;
+  background-color:peachpuff;
+}

@@ -80,10 +80,6 @@ class Articles
      */
     private $users;
 
-//    /**
-//     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="articles")
-//     */
-//    private $users;
 
     public function __construct()
     {

@@ -32,7 +32,45 @@ class ArticlesRepository extends ServiceEntityRepository implements ArticlesRepo
      */
     public function getAllArticle():array
     {
-         return parent:: findAll();
+//         return parent:: findAll();
+        
+          return $this->getEntityManager()
+                ->createQueryBuilder()
+            ->select('ar', "cat.name as cat_name","ar.id as ar_id","ar.title","ar.publicationdate",
+                    "subcat.titlesubcat as subcat_name",
+                    "ar.active", "user.id as user_id")
+            ->from(Articles::class, 'ar')
+            ->innerJoin(
+                \App\Entity\Categories::class,
+            'cat',
+            \Doctrine\ORM\Query\Expr\Join::WITH,
+               'cat.id = ar.category'
+            )
+                ->innerJoin(
+                \App\Entity\Subcategories::class,
+            'subcat',
+            \Doctrine\ORM\Query\Expr\Join::WITH,
+              'subcat.id = ar.subcategoryid'
+            )
+                ->innerJoin(
+                \App\Entity\Users::class,
+            'user',
+            \Doctrine\ORM\Query\Expr\Join::WITH,
+
+            )
+//                  ->where('ar.id = user.articles' )
+//                ->where('ar.active ='. 1 )
+//                ->orderBy('ar.publicationdate', 'ASC')
+//                ->setMaxResults(5)
+                
+                    ->getQuery()
+                    ->getResult();
+     
+// ->leftJoin('f.productgroup', 'productgroup')        
+//          SELECT * FROM  articles_users LEFT JOIN users 
+//    ON users_id = users.id 
+//    WHERE articles_users.articles_id = 2
+         
     }
     
     public function getFiveArticleActive():array

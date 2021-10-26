@@ -13,15 +13,40 @@ use App\Entity\Users;
 use App\Form\UserType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Repository\UsersRepositoryInterface ;
 
-class AdminUserController extends AbstractController
+class UserController extends AbstractController
 {
+    
+    
+    private $userRepository;
+    
+        public function __construct(
+         UsersRepositoryInterface  $userRepository)
+    {
+//        $this->categoryRepository = $categoryRepository;
+//        $this->subcategoryRepository = $subcategoryRepository;
+          $this->userRepository = $userRepository;
+    }
+    /**
+     * @Route("admin/main", name="admin_main")
+     * @return \App\Controller\Admin\RedirectResponse
+     */
+    public function index(): RedirectResponse
+{
+    // redirects to the "admin_articles" route
+    return $this->redirectToRoute("admin_main_articles");
+}
+
     /**
      * @Route("admin/users", name="all_users")
      */
    public function allUsers()
    {
-     $users = $this->getDoctrine()->getRepository(Users::class)->findAll(); 
+     
+     $users = $this->userRepository->getAllUsers();
+//    dd($users);
      
       return $this->render('admin/user/allusers.html.twig',["users" => $users],);
     }
@@ -51,6 +76,7 @@ class AdminUserController extends AbstractController
         }
         
         $forRender["form"] = $form->createView();
-        return $this->render('admin/user/form.html.twig',["form" => $forRender["form"]],);
+        $title = "Новый пользователь";
+        return $this->render('admin/user/form.html.twig',["form" => $forRender["form"],"title" => $title],);
     }
 }

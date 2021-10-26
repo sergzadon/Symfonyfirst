@@ -1,0 +1,46 @@
+{# empty Twig template #}
+{% extends 'admin/baseadmin.html.twig'%}
+{% block title %} Adminarticle {% endblock %}
+
+{% block body %}
+    {% if articles  is defined  %}
+        <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Дата</th>
+      <th scope="col">Оглавление</th>
+      <th scope="col">Категория</th>
+      <th scope="col">Подкатегория</th>
+      <th scope="col">Авторы</th>
+      <th scope="col">Активность</th>
+      <th scope="col"></th>
+    </tr>
+     </thead>
+     <tbody>
+     {% for article in articles %}
+     <tr>
+        <td> {{ article.publicationdate | date('d-m-Y') }}</td>
+        <td><a href="#">{{article.title}}</a></td>
+        <td>{{article.cat_name}}</td>
+        <td>{{article.subcat_name}}</td>
+        <td></td>
+        <td>{% if article.active == 1 %} Active</td>
+            {% else %}
+                Not active
+            {% endif %}
+        <td>  <a href="#"class="btn btn-primary  btn-sm">Редактировать</a></td>
+    </tr>
+     {% endfor %}
+     </tbody>
+    </table>
+      <div class="container float-left ml-1">
+        <div class="row no-gutters ">
+            <div class="col-12 mt-3">
+                <a href="{{ path ("admin_article_create") }}" class="btn btn-success btn-sm ">Создать статью</a>
+            </div>
+        </div>
+   </div>
+     {% else %}
+         <p> Список пользователей пуст. </p>
+     {% endif %}
+{% endblock %}

@@ -3,18 +3,6 @@
 {% block title %} HomePage {% endblock %}
 
 {% block body %}
-    {# {% for category in categories %}
-        {{ category.name }}
-     {% endfor %}
-     
-     {% for subcategory in subcategories %}
-        {{ subcategory.titleSubcat }}
-     {% endfor %}
-     
-     {% for article in articles %}
-        {{ article.title }}
-     {% endfor %}
-     #}
     <ul id="headlines">
     {% for article in articles %}
         <li class='{{ article.ar_id }}'>

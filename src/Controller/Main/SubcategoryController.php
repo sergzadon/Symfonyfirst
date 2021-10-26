@@ -11,7 +11,7 @@ use App\Repository\ArticlesRepositoryInterface;
 use App\Entity\Categories;
 use App\Entity\Articles;
 
-class ArchiveSubcategoryController extends AbstractController
+class SubcategoryController extends AbstractController
 {
     /**
      * @Route("archive/subcategory{subcategory_id}",name="archive_subcategory") 
